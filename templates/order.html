@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Order Form</title>
+	<link rel="stylesheet" href="/static/style2.css">
+    <script src="/static/j2.js" defer></script>
+</head>
+<body>
+	<form>
+		<h2>Order Form</h2>
+		<div class="container">
+		<form action="{{ url_for('order') }}" method="POST">
+		<section>
+			<h3>Customer Information</h3>
+			<label for="fullName">Full Name:</label>
+			<input type="text" id="fullName" name="fullName"><br><br>
+			<label for="address">Address:</label>
+			<input type="text" id="address" name="address"><br><br>
+			<label for="contact">Contact:</label>
+			<input type="tel" id="contact" name="contact"><br><br>
+			<label for="email">Email:</label>
+			<input type="email" id="email" name="email"><br><br>
+		</section>
+		<section>
+			<h3>Product Information</h3>
+			<label for="productName">Product Name:</label>
+			<input type="text" id="productName" name="productName"><br><br>
+			<label for="image">Image:</label>
+			<input type="file" id="image" name="image"><br><br>
+			<label for="price">Price:</label>
+			<input type="number" id="price" name="price"><br><br>
+			<label for="qty">Quantity:</label>
+			<input type="number" id="qty" name="qty"><br><br>
+			<label for="totalAmount">Total Amount:</label>
+			<input type="number" id="totalAmount" name="totalAmount" readonly><br><br>
+		</section>
+		<section>
+			<h3>Order Details</h3>
+			<label for="date">Date:</label>
+			<input type="date" id="date" name="date"><br><br>
+		</section>
+		<input type="submit" value="Submit">
+	</div>
+	</form>
+</body>
+</html>

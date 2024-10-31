@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="static/user.css">
+</head>
+<body>
+    <header>
+        <h1>Customer Dashboard</h1>
+    </header>
+
+    <div class="container">
+        <aside>
+            <ul class="sidebar">
+                <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="{{ url_for('profile') }}">Profile</a></li>
+        <li><a href="{{ url_for('feedback') }}">feedback</a></li>
+        <li><a href="{{ url_for('list_products') }}">Product List</a></li> <!-- Updated link -->
+        <li>
+                    <form action="{{ url_for('logout') }}" method="post" style="display:inline;">
+                        <button type="submit" style="background:none; border:none; color:blue; cursor:pointer;">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </aside>
+
+        <main>
+            <section id="dashboard">
+                <h2>Dashboard</h2>
+                <p>Welcome to your dashboard!</p>
+            </section>
+
+            <section id="profile">
+                <h2>Your Profile</h2>
+            </section>
+
+            <section id="settings">
+                <h2>Settings</h2>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Company Name. All rights reserved.</p>
+    </footer>
+</body>
+</html>

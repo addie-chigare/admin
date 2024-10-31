@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>User List</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user[0] }}</td>  <!-- Adjust index based on your database schema -->
+                        <td>{{ user[1] }}</td>  <!-- Adjust index based on your database schema -->
+                        <td>{{ user[2] }}</td>  <!-- Adjust index based on your database schema -->
+                        <td>
+                            {% if user[3] == 1 %}  <!-- Assuming index 3 is `is_blocked` -->
+                                Blocked
+                            {% else %}
+                                Active
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user[3] == 1 %}
+                                <a href="{{ url_for('unblock_user', user_id=user[0]) }}" class="btn btn-success btn-sm">Unblock</a>
+                            {% else %}
+                                <a href="{{ url_for('block_user', user_id=user[0]) }}" class="btn btn-warning btn-sm">Block</a>
+                            {% endif %}
+                            <a href="{{ url_for('delete_user', user_id=user[0]) }}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

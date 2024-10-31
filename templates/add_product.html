@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='a.css') }}">
+    <title>Add Product</title>
+    <script>
+        function validateFileSize() {
+            const fileInput = document.getElementById('photo');
+            const file = fileInput.files[0];
+            const maxSize = 45 * 1024 * 1024; // 45 MB
+            const minSize = 10 * 1024; // 10 KB
+
+            
+            if (file) {
+                if (file.size > maxSize) {
+                    document.getElementById('file-error').textContent = 'File size must be less than 45 MB.';
+                    return false;
+                } else if (file.size < minSize) {
+                    document.getElementById('file-error').textContent = 'File size must be at least 10 KB.';
+                    return false;
+                } else {
+                    document.getElementById('file-error').textContent = '';
+                }
+            }
+            return true;
+        }
+
+        function validateDescription() {
+            const description = document.getElementById('description').value;
+            const wordCount = description.trim().split(/\s+/).length;
+            if (wordCount > 150) {
+                document.getElementById('description-error').textContent = 'Description can only contain a maximum of 150 words.';
+                return false;
+            } else {
+                document.getElementById('description-error').textContent = '';
+            }
+            return true;
+        }
+
+        function validateForm() {
+            return validateFileSize() && validateDescription();
+        }
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Manage Users</a></li>
+            <li><a href="{{ url_for('add_product') }}">Manage Products</a></li>
+            <li><a href="#">Orders</a></li>
+            <li><a href="#">Feedback</a></li>
+        </ul>
+        <button onclick="location.href='{{ url_for('admin_logout') }}'">Logout</button>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <h1>Add New Product</h1>
+            <form id="add-product-form" method="POST" action="{{ url_for('add_product') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label for="product-name">Product Name</label>
+                    <input type="text" id="product-name" name="product-name" required pattern="^[a-zA-Z\s]+$" title="Only letters and spaces are allowed.">
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" name="links" size="1" onchange="window.location.href=this.value;" required>
+                        <option value="">Select a category</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="add_book">Books</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="home">Home & Kitchen</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price ($)</label>
+                    <input type="number" id="price" name="price" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="4" maxLength="150" required oninput="validateDescription()"></textarea>
+                    <div id="description-error" style="color: red;"></div>
+                </div>
+                <div class="form-group">
+                    <label for="photo">Upload Photo</label>
+                    <input type="file" id="photo" name="photo" accept="image/*" required>
+                    <div id="file-error" style="color: red;"></div>
+                </div>
+                <button type="submit">Add Product</button>
+            </form>
+            

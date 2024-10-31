@@ -1,0 +1,19 @@
+body {
+  background-color: #f8f9fa;
+}
+.form-container {
+  margin: 50px auto;
+  max-width: 800px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.form-group img {
+  max-width: 100px;
+  height: auto;
+}

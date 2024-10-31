@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h2 {
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .btn-info, .btn-danger, .btn-warning {
+            border-radius: 5px;
+        }
+    </style>
+    <title>Product List</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Product List</h2>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename=product[6]) }}" class="card-img-top" alt="{{ product[1] }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product[1] }}</h5>
+                        <p class="card-text">Category: {{ product[2] }}</p>
+                        <p class="card-text">Price: ${{ product[3] }}</p>
+                        <p class="card-text">Quantity: {{ product[4] }}</p>
+                        <p class="card-text">{{ product[5] }}</p>
+
+                        <form action="{{ url_for('updateproducts') }}" method="post">
+                            <input type="hidden" name="id" value="{{ product[0] }}">
+                            <input type="text" name="product-name" value="{{ product[1] }}" placeholder="Enter Name" class="form-control mb-2">
+                            <input type="text" name="category" value="{{ product[2] }}" placeholder="Enter Category" class="form-control mb-2">
+                            <input type="text" name="price" value="{{ product[3] }}" placeholder="Enter Price" class="form-control mb-2">
+                            <input type="text" name="quantity" value="{{ product[4] }}" placeholder="Enter Quantity" class="form-control mb-2">
+                            <input type="text" name="description" value="{{ product[5] }}" placeholder="Enter Description" class="form-control mb-2">
+                            <input type="submit" value="Update" class="btn btn-success mb-2">
+                        </form>
+                        
+                        <form action="{{ url_for('deleteproducts') }}" method="POST">
+                            <input type="hidden" name="id" value="{{ product[0] }}">
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

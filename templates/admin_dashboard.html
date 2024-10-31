@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='board.css') }}">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-dark border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading text-white">Admin Panel</div>
+        <div class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Dashboard</a>
+            <a href="{{ url_for('user_list') }}" class="list-group-item list-group-item-action bg-dark text-white">Manage Users</a>
+            <a href="{{ url_for('add_product') }}" class="list-group-item list-group-item-action bg-dark text-white">Manage Products</a>
+            <a href="{{ url_for('list_feedback') }}" class="list-group-item list-group-item-action bg-dark text-white">List Feedback</a>
+            <a href="{{ url_for('ViewOrder') }}" class="list-group-item list-group-item-action bg-dark text-white">Orders</a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Feedback</a>
+        </div>
+        <button class="btn btn-danger btn-block" onclick="location.href='{{ url_for('admin_logout') }}'">Logout</button>
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <h1 class="mt-4">Admin Dashboard</h1>
+            <p>Welcome to the admin dashboard!</p>
+            <!-- Additional dashboard content can go here -->
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+</body>
+</html>
